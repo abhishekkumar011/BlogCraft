@@ -43,4 +43,28 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-export { createPost, getAllPosts };
+const getAPost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+
+    if (!postId) {
+      return res.status(400).json({ msg: "postId is required" });
+    }
+
+    const postById = await Post.findById(postId).populate(
+      "author",
+      "name email"
+    );
+
+    if (!postById) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+
+    return res.status(200).json({ postById, msg: "Post fetched successfully" });
+  } catch (error) {
+    console.error("Error while fetching post:", error);
+    return res.status(500).json({ msg: "Error while fetching the post" });
+  }
+};
+
+export { createPost, getAllPosts, getAPost };

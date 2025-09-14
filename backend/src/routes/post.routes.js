@@ -1,11 +1,16 @@
 import { Router } from "express";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
-import { createPost, getAllPosts } from "../controllers/post.controller.js";
+import {
+  createPost,
+  getAllPosts,
+  getAPost,
+} from "../controllers/post.controller.js";
 
 const router = Router();
 
 router.route("/createpost").post(verifyJWT, upload.single("image"), createPost);
 router.route("/").get(getAllPosts);
+router.route("/p/:postId").get(getAPost);
 
 export default router;
