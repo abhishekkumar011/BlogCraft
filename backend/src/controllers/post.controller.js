@@ -1,5 +1,8 @@
 import { Post } from "../models/post.model.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import {
+  deleteFromCloudinary,
+  uploadOnCloudinary,
+} from "../utils/cloudinary.js";
 
 const createPost = async (req, res) => {
   try {
@@ -47,7 +50,7 @@ const getAPost = async (req, res) => {
   try {
     const { postId } = req.params;
 
-    if (!postId) {
+    if (!postId.trim()) {
       return res.status(400).json({ msg: "postId is required" });
     }
 
@@ -67,4 +70,37 @@ const getAPost = async (req, res) => {
   }
 };
 
-export { createPost, getAllPosts, getAPost };
+const deletePost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+
+    if (!postId.trim()) {
+      return res.status(400).json({ msg: "postId is required" });
+    }
+
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+
+    if (post?.author.toString() !== req.user?._id.toString()) {
+      return res
+        .status(400)
+        .json({ msg: "You can't delete this post as you are not the owner" });
+    }
+
+    if (post?.image?.public_id) {
+      await deleteFromCloudinary(post.image.public_id);
+    }
+
+    await Post.findByIdAndDelete(post?._id);
+
+    return res.status(200).json({ msg: "Post deleted successfully" });
+  } catch (error) {
+    console.error("Error while deleting post:", error);
+    return res.status(500).json({ msg: "Error while deleting the post" });
+  }
+};
+
+export { createPost, getAllPosts, getAPost, deletePost };
