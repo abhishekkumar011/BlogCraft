@@ -30,4 +30,17 @@ const createPost = async (req, res) => {
   }
 };
 
-export { createPost };
+const getAllPosts = async (req, res) => {
+  try {
+    const posts = await Post.find()
+      .populate("author", "name email")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).json({ posts, msg: "Posts fetched successfully" });
+  } catch (error) {
+    console.error("Error while fetching posts ", error);
+    return res.status(500).json({ msg: "Error while fetching posts" });
+  }
+};
+
+export { createPost, getAllPosts };
