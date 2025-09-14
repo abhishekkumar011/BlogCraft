@@ -103,4 +103,47 @@ const deletePost = async (req, res) => {
   }
 };
 
-export { createPost, getAllPosts, getAPost, deletePost };
+const updatePost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+
+    if (!postId.trim()) {
+      return res.status(400).json({ msg: "postId is required" });
+    }
+
+    const { title, content } = req.body;
+
+    if (!title || !content) {
+      return res.status(400).json({ msg: "All fields are required" });
+    }
+
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+
+    if (post?.author.toString() !== req.user?._id.toString()) {
+      return res
+        .status(400)
+        .json({ msg: "You can't update this post as you are not the owner" });
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      {
+        $set: { title, content },
+      },
+      { new: true }
+    );
+
+    return res
+      .status(200)
+      .json({ updatedPost, msg: "video successfully updated" });
+  } catch (error) {
+    console.error("Error while updating post:", error);
+    return res.status(500).json({ msg: "Error while updating the post" });
+  }
+};
+
+export { createPost, getAllPosts, getAPost, deletePost, updatePost };
