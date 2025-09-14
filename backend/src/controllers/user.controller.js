@@ -1,4 +1,11 @@
+import jwt from "jsonwebtoken";
 import { User } from "../models/user.model.js";
+
+const generateToken = (userId) => {
+  return jwt.sign({ _id: userId }, process.env.JWT_SECRET, {
+    expiresIn: process.env.TOKEN_EXPIRY,
+  });
+};
 
 const signup = async (req, res) => {
   try {
@@ -22,7 +29,11 @@ const signup = async (req, res) => {
       password,
     });
 
-    return res.status(200).json({ user, msg: "User registered Successfully" });
+    const token = generateToken(user._id);
+
+    return res
+      .status(200)
+      .json({ user, token, msg: "User registered Successfully" });
   } catch (error) {
     console.error("Error registering user:", error);
     return res
@@ -51,7 +62,11 @@ const login = async (req, res) => {
       return res.status(401).json({ msg: "Invalid user credentials" });
     }
 
-    return res.status(200).json({ user, msg: "User logged in Successfully" });
+    const token = generateToken(user._id);
+
+    return res
+      .status(200)
+      .json({ user, token, msg: "User logged in Successfully" });
   } catch (error) {
     console.error("Error while logging user ", error);
     return res.status(500).json({ msg: "Error while logging the user" });
