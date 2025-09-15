@@ -1,7 +1,11 @@
+import Header from "./components/Header";
+
 function App() {
   return (
-    <div className="text-2xl text-center font-bold mt-4">Hello from App</div>
-  )
+    <div>
+      <Header />
+    </div>
+  );
 }
 
-export default App
+export default App;
