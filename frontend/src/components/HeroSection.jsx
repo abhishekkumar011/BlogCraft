@@ -32,7 +32,7 @@ function HeroSection() {
             <ArrowRight className="ml-1 h-4 w-4" />
           </Button>
         </Link>
-        <Link to={"/explore"}>
+        <Link to={"/all-post"}>
           <Button variant="outline" size="lg" className="cursor-pointer">
             Explore Posts
           </Button>

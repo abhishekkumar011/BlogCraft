@@ -5,8 +5,8 @@ import { PenTool, User } from "lucide-react";
 function Header() {
   const navItems = [
     {
-      name: "Explore",
-      link: "/explore",
+      name: "All Post",
+      link: "/all-post",
     },
     {
       name: "Write",
