@@ -1,11 +1,15 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function Post() {
   const { id } = useParams();
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(false);
+
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -24,9 +28,28 @@ function Post() {
     }
   }, []);
 
+  const handleDeletePost = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/posts/p/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      alert("Post Deleted");
+      navigate("/");
+    } catch (error) {
+      alert("Delete Failed");
+      console.log("Delete Failed", error);
+    }
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
+
+  const isAuthor = user && post.author && user._id === post.author._id;
 
   return (
     <div className="flex justify-center">
@@ -42,6 +65,23 @@ function Post() {
           </div>
         </div>
         <p className="text-gray-500 text-sm line-clamp-3">{post?.content}</p>
+
+        {isAuthor && (
+          <div className="flex justify-between">
+            <Link
+              to={`/post/edit/${post._id}`}
+              className="bg-primary hover:bg-primary/80 text-white px-4 py-2 rounded-md font-medium"
+            >
+              Edit
+            </Link>
+            <button
+              onClick={handleDeletePost}
+              className="bg-red-600 cursor-pointer hover:bg-red-500 text-white px-4 py-2 rounded-md font-medium"
+            >
+              Delete
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

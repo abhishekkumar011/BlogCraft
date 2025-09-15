@@ -11,6 +11,7 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PostForm from "./pages/PostForm.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import EditPost from "./pages/EditPost.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
             <PostForm />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/post/edit/:id",
+        element: <EditPost />,
       },
     ],
   },
