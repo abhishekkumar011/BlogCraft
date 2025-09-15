@@ -1,4 +1,4 @@
-# 🌤️ Weather Now
+# ✏️ Blog Craft
 
 A blog platform built with the MERN stack (MongoDB, Express, React, Node.js).
 This project demonstrates end-to-end skills: authentication, authorization, CRUD operations, file uploads, and frontend integration.
