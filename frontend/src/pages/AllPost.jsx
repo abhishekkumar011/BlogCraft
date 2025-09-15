@@ -1,19 +1,31 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
-import axios from "axios";
 
 function AllPost() {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchPost = async () => {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/posts/`
-      );
-      setPosts(response.data.posts);
-    };
-    fetchPost();
+    try {
+      setLoading(true);
+      const fetchPosts = async () => {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/posts/`
+        );
+        setPosts(response.data.posts);
+      };
+      fetchPosts();
+    } catch (error) {
+      console.error("Could not load posts ", error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="p-10 grid grid-cols-4">

@@ -5,18 +5,26 @@ import { useParams } from "react-router-dom";
 function Post() {
   const { id } = useParams();
   const [post, setPost] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchSinglePost = async (id) => {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/posts/p/${id}`
-      );
-      setPost(response.data.postById);
-    };
-    fetchSinglePost(id);
+    try {
+      setLoading(true);
+      const fetchSinglePost = async (id) => {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/posts/p/${id}`
+        );
+        setPost(response.data.postById);
+      };
+      fetchSinglePost(id);
+    } catch (error) {
+      console.error("Could not load post ", error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  if (!post) {
+  if (loading) {
     return <p>Loading...</p>;
   }
 

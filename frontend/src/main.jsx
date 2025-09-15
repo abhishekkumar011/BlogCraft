@@ -9,6 +9,8 @@ import AllPost from "./pages/AllPost.jsx";
 import { createRoot } from "react-dom/client";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import PostForm from "./pages/PostForm.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,14 @@ const router = createBrowserRouter([
       {
         path: "/post/:id",
         element: <Post />,
+      },
+      {
+        path: "/createpost",
+        element: (
+          <PrivateRoute>
+            <PostForm />
+          </PrivateRoute>
+        ),
       },
     ],
   },
