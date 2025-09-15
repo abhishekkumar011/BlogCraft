@@ -15,8 +15,6 @@ function AllPost() {
     fetchPost();
   }, []);
 
-  console.log(posts);
-
   return (
     <div className="p-10 grid grid-cols-4">
       {posts.length === 0 ? (
