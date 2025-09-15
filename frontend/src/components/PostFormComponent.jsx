@@ -36,7 +36,7 @@ function PostFormComponent() {
       if (response?.data) {
         alert("Post created successfully");
       }
-      
+
       navigate("/");
     } catch (error) {
       console.log("Post creation failed ", error);
@@ -79,6 +79,12 @@ function PostFormComponent() {
               />
             </div>
 
+            {error && (
+              <p className="text-red-600 text-sm text-center font-medium">
+                {error}
+              </p>
+            )}
+
             <div className="flex justify-between">
               <input
                 type="file"
@@ -87,16 +93,13 @@ function PostFormComponent() {
                 onChange={(e) => setFile(e.target.files[0])}
               />
 
-              {error && (
-                <p className="text-red-600 text-sm text-center font-medium">
-                  {error}
-                </p>
-              )}
-
-              <div className="flex items-center gap-2 text-white bg-primary px-4 py-2 w-fit rounded-md cursor-pointer">
+              <button
+                type="submit"
+                className="flex items-center gap-2 text-white bg-primary px-4 py-2 w-fit rounded-md cursor-pointer"
+              >
+                Publish
                 <Upload size={18} />
-                <button type="submit">Publish</button>
-              </div>
+              </button>
             </div>
           </div>
         </form>
