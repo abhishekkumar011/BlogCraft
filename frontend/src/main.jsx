@@ -6,6 +6,7 @@ import AllPost from "./pages/AllPost.jsx";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Post from "./pages/Post.jsx";
+import Login from "./pages/Login.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,13 +18,17 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/login",
+        element: <Login />,
+      },
+      {
         path: "/all-post",
         element: <AllPost />,
       },
       {
         path: "/post/:id",
-        element: <Post/>
-      }
+        element: <Post />,
+      },
     ],
   },
 ]);

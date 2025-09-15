@@ -22,7 +22,7 @@ function Post() {
 
   return (
     <div className="flex justify-center">
-      <div className="rounded-md shadow-md mx-20 my-10 py-10 px-10 border space-y-4 max-w-3xl">
+      <div className="rounded-md shadow-md mx-20 my-10 py-10 px-10 border border-gray-300 space-y-4 max-w-3xl">
         <h1 className="text-4xl font-semibold">{post?.title}</h1>
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full overflow-hidden">
@@ -33,9 +33,7 @@ function Post() {
             <h6 className="text-xs ">{post?.author?.email}</h6>
           </div>
         </div>
-        <p className="text-muted-foreground text-sm line-clamp-3">
-          {post?.content}
-        </p>
+        <p className="text-gray-500 text-sm line-clamp-3">{post?.content}</p>
       </div>
     </div>
   );

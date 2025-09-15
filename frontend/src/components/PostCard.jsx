@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function PostCard({ title, content, image, author, _id }) {
   return (
-    <div className="rounded-md shadow-md max-w-xs border overflow-hidden">
+    <div className="rounded-md shadow-md max-w-xs border border-gray-300 overflow-hidden">
       <div className="h-50 bg-red-200">
         <img
           src={image?.url ? image.url : "./postcardimg.webp"}
@@ -18,12 +18,10 @@ function PostCard({ title, content, image, author, _id }) {
             </h1>
           </Link>
 
-          <p className="text-muted-foreground text-sm line-clamp-3">
-            {content}
-          </p>
+          <p className="text-gray-500 text-sm line-clamp-3">{content}</p>
         </div>
 
-        <div className="border rounded my-4"></div>
+        <div className="border border-gray-300 rounded my-4"></div>
 
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full overflow-hidden">
