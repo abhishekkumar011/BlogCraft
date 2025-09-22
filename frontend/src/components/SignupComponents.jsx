@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useContext, useState } from "react";
-import { ArrowRight, PenTool } from "lucide-react";
+import { ArrowRight, Loader2, PenTool } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
 function SignupComponent() {
   const [name, setName] = useState("");
+  const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function SignupComponent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
+    setLoading(true);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/users/signup`,
@@ -42,6 +43,8 @@ function SignupComponent() {
       } else {
         setError("Something went wrong. Please try again.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,7 +58,7 @@ function SignupComponent() {
       </div>
       <h4 className="text-gray-500 mt-1">Start your blogging journey today</h4>
 
-      <div className="shadow rounded-lg border border-gray-300 p-5 md:p-10 mt-10">
+      <div className="shadow rounded-lg border border-gray-300 p-5 md:p-10 my-10">
         <h2 className="text-xl md:text-2xl text-center font-semibold text-gray-800">
           Create Account
         </h2>
@@ -116,9 +119,16 @@ function SignupComponent() {
             <button
               type="submit"
               className="text-sm md:text-base flex items-center justify-center rounded w-full h-8 md:h-12 bg-orange-600 cursor-pointer mt-4 hover:bg-orange-700 text-white font-medium"
+              disabled={loading}
             >
-              Create Account
-              <ArrowRight className="ml-2 h-4 w-4" />
+              {loading ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <>
+                  Create Account
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </>
+              )}
             </button>
 
             <div className="text-center mt-4">

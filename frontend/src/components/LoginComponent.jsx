@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useContext, useState } from "react";
-import { ArrowRight, PenTool } from "lucide-react";
+import { ArrowRight, Loader2, PenTool } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function LoginComponent() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ function LoginComponent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/users/login`,
@@ -33,6 +35,8 @@ function LoginComponent() {
       } else {
         setError("Something went wrong. Please try again.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,9 +99,16 @@ function LoginComponent() {
             <button
               type="submit"
               className="text-sm md:text-base flex items-center justify-center rounded w-full h-8 md:h-12 bg-orange-600 cursor-pointer mt-4 hover:bg-orange-700 text-white font-medium"
+              disabled={loading}
             >
-              Sign In
-              <ArrowRight className="ml-2 h-4 w-4" />
+              {loading ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <>
+                  Sign In
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </>
+              )}
             </button>
 
             <div className="text-center mt-4">
