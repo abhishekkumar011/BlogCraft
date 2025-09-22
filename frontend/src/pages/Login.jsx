@@ -2,7 +2,7 @@ import LoginComponent from "../components/LoginComponent";
 
 function Login() {
   return (
-    <div>
+    <div className="px-5">
       <LoginComponent />
     </div>
   );

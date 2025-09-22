@@ -48,13 +48,15 @@ function SignupComponent() {
   return (
     <div className="flex flex-col items-center justify-center mt-10">
       <div className="flex items-center gap-2">
-        <PenTool className="h-8 w-8 text-primary" />
-        <h1 className="text-3xl font-semibold text-gray-800">BlogCraft</h1>
+        <PenTool className="h-5 w-5 md:h-8 md:w-8 text-primary" />
+        <h1 className="text-2xl md:text-3xl font-semibold text-gray-800">
+          BlogCraft
+        </h1>
       </div>
       <h4 className="text-gray-500 mt-1">Start your blogging journey today</h4>
 
-      <div className="shadow rounded-lg border border-gray-300 p-10 mt-10">
-        <h2 className="text-2xl text-center font-semibold text-gray-800">
+      <div className="shadow rounded-lg border border-gray-300 p-5 md:p-10 mt-10">
+        <h2 className="text-xl md:text-2xl text-center font-semibold text-gray-800">
           Create Account
         </h2>
         <h5 className="text-gray-500 mt-1 text-sm text-center">
@@ -62,21 +64,23 @@ function SignupComponent() {
         </h5>
 
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-4 mt-10 min-w-sm">
+          <div className="flex flex-col gap-4 mt-10 md:min-w-sm">
             <div className="flex flex-col gap-1">
-              <label className=" font-semibold text-gray-800">Full Name</label>
+              <label className="text-sm md:text-base font-semibold text-gray-800">
+                Full Name
+              </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
                 placeholder="Enter your full name"
-                className="border-2 border-gray-200 p-2 rounded-md outline-0"
+                className="border-2 border-gray-200 text-sm p-2 rounded-md outline-0"
               />
             </div>
 
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-gray-800">
+              <label className="text-sm md:text-base font-semibold text-gray-800">
                 Email Address
               </label>
               <input
@@ -85,19 +89,21 @@ function SignupComponent() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="Enter your email"
-                className="border-2 border-gray-200 p-2 rounded-md outline-0"
+                className="border-2 border-gray-200 text-sm p-2 rounded-md outline-0"
               />
             </div>
 
             <div className="flex flex-col gap-1">
-              <label className=" font-semibold text-gray-800">Password</label>
+              <label className="text-sm md:text-base font-semibold text-gray-800">
+                Password
+              </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="Enter your password"
-                className="border-2 border-gray-200 p-2 rounded-md outline-0"
+                className="border-2 border-gray-200 text-sm p-2 rounded-md outline-0"
               />
             </div>
 
@@ -109,7 +115,7 @@ function SignupComponent() {
 
             <button
               type="submit"
-              className="flex items-center justify-center rounded w-full h-12 bg-orange-600 cursor-pointer mt-4 hover:bg-orange-700 text-white font-medium"
+              className="text-sm md:text-base flex items-center justify-center rounded w-full h-8 md:h-12 bg-orange-600 cursor-pointer mt-4 hover:bg-orange-700 text-white font-medium"
             >
               Create Account
               <ArrowRight className="ml-2 h-4 w-4" />
