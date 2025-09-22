@@ -1,4 +1,3 @@
-// src/pages/EditPost.js
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -55,9 +54,11 @@ function EditPostComponent() {
   };
 
   return (
-    <div className="p-10 flex items-center justify-center">
-      <div className="p-10 shadow-md w-2/3 rounded-lg border border-gray-300">
-        <h4 className="text-primary text-2xl font-semibold">Edit Post</h4>
+    <div className="py-10 px-5 md:px-0 flex items-center justify-center">
+      <div className="p-5 md:p-10 shadow-md w-full md:w-2/3 rounded-lg border border-gray-300">
+        <h4 className="text-primary text-xl md:text-2xl font-semibold text-center">
+          Edit Post
+        </h4>
 
         <form onSubmit={handleUpdate}>
           <div className="mt-10 flex flex-col gap-8">
@@ -67,7 +68,7 @@ function EditPostComponent() {
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="border-2 border-gray-200 p-2 rounded-md outline-0"
+                className="border-2 border-gray-200 p-2 rounded-md outline-0 text-sm"
               />
             </div>
 
@@ -77,7 +78,7 @@ function EditPostComponent() {
                 required
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="border-2 h-50 border-gray-200 p-2 rounded-md outline-0"
+                className="border-2 h-50 border-gray-200 p-2 rounded-md outline-0 text-sm"
               />
             </div>
 
@@ -89,7 +90,7 @@ function EditPostComponent() {
 
             <button
               type="submit"
-              className="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary/80"
+              className="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary/80 text-sm md:text-base"
             >
               Update Post
             </button>
