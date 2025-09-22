@@ -49,22 +49,22 @@ function PostFormComponent() {
   };
 
   return (
-    <div className="p-10 flex items-center justify-center">
-      <div className="p-10 shadow-md w-2/3 rounded-lg border border-gray-300">
-        <h4 className="text-primary text-2xl font-semibold">
+    <div className="py-10 px-5 md:px-0 flex items-center justify-center">
+      <div className="p-5 md:p-10 shadow-md w-full md:w-2/3 rounded-lg border border-gray-300">
+        <h4 className="text-primary text-xl md:text-2xl font-semibold text-center">
           Create Your Post
         </h4>
 
         <form onSubmit={handleSubmit}>
           <div className="mt-10 flex flex-col gap-8">
             <div className="flex flex-col gap-1">
-              <label className=" font-medium text-gray-800">Post Title</label>
+              <label className="font-medium text-gray-800">Post Title</label>
               <input
                 required
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
                 placeholder="Enter your title"
-                className="border-2 border-gray-200 p-2 rounded-md outline-0"
+                className="border-2 border-gray-200 text-sm p-2 rounded-md outline-0"
               />
             </div>
 
@@ -73,7 +73,7 @@ function PostFormComponent() {
               <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="border-2 h-50 border-gray-200 p-2 rounded-md outline-0"
+                className="border-2 h-50 border-gray-200 text-sm p-2 rounded-md outline-0"
                 required
                 placeholder="Enter your content"
               />
@@ -85,17 +85,17 @@ function PostFormComponent() {
               </p>
             )}
 
-            <div className="flex justify-between">
+            <div className="flex flex-col md:flex-row items-center md:justify-between gap-4">
               <input
                 type="file"
-                className="font-medium text-primary border border-gray-300 rounded p-2 w-fit cursor-pointer"
+                className="font-medium text-primary border border-gray-300 rounded p-2 w-full md:w-auto cursor-pointer text-sm"
                 accept="image/*"
                 onChange={(e) => setFile(e.target.files[0])}
               />
 
               <button
                 type="submit"
-                className="flex items-center gap-2 text-white bg-primary px-4 py-2 w-fit rounded-md cursor-pointer"
+                className="flex items-center gap-2 text-white bg-primary px-4 py-2 w-full md:w-auto justify-center rounded-md cursor-pointer text-sm md:text-base"
               >
                 Publish
                 <Upload size={18} />
